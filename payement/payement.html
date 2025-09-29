@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paiement</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .payment-box {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .payment-box h2 {
+      margin-bottom: 25px;
+      color: #222;
+    }
+
+    .payment-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 15px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .payment-button img {
+      width: 44px;
+      height: 44px;
+      margin-right: 10px;
+    }
+
+    .om {
+      background-color: #ff7900;
+    }
+
+    .om:hover {
+      background-color: #e56700;
+    }
+
+    .wave {
+      background-color:rgb(40, 144, 189);
+    }
+
+    .wave:hover {
+      background-color: #007bb3;
+    }
+
+    .back-button {
+      margin-top: 20px;
+      background: none;
+      border: none;
+      color: #555;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="payment-box">
+    <h2>Choisissez un mode de paiement</h2>
+
+    <a href="https://multi.app.orange-money.com/app/v1/transaction/merchantPayment/1417814" class="payment-button om" target="_blank">
+      <img src="/images/orangemoney.jpg" alt="Orange Money" />
+      Paiement via Orange Money
+    </a>
+
+    <a href="https://pay.wave.com/m/M_ci_NheiyMVXKiIj/c/ci/" class="payment-button wave" target="_blank">
+      <img src="/images/wave.jpg" alt="Wave" />
+      Paiement via Wave
+    </a>
+
+    <button class="btn-retour" onclick="history.back()">
+      <i class="bi bi-arrow-left"></i>
+      Retour
+    </button>
+  </div>
+
+</body>
+</html>

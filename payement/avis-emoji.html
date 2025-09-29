@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votre Avis - Restaurant Enjera Ethiopian</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 800px;
+    }
+
+    .navbar-custom {
+      background: white;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .feedback-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .emoji-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 40px 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .emoji-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 15px;
+      border-radius: 15px;
+      min-width: 120px;
+    }
+
+    .emoji-option:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      background: #f8f9fa;
+    }
+
+    .emoji-option.selected {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+    }
+
+    .emoji {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .emoji-option:hover .emoji {
+      transform: scale(1.1);
+    }
+
+    .emoji-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .form-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #ffc107, #ffca2c);
+      border: none;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+    }
+
+    .btn-primary:disabled {
+      background: #6c757d;
+      transform: none;
+      cursor: not-allowed;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      border: 2px solid #e9ecef;
+      padding: 12px 15px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #ffc107;
+      box-shadow: 0 0 10px rgba(255, 193, 7, 0.2);
+    }
+
+    .counter {
+      font-size: 1.2rem;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    .counter-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffc107;
+    }
+
+    .success-message {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      border-radius: 15px;
+      padding: 20px;
+      color: #155724;
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .required {
+      color: #dc3545;
+    }
+
+    @media (max-width: 768px) {
+      .emoji-container {
+        justify-content: center;
+      }
+      
+      .emoji-option {
+        min-width: 100px;
+      }
+      
+      .emoji {
+        font-size: 3rem;
+      }
+      
+      .feedback-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-custom container">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="/images/WhatsApp_Image_2025-09-29_à_09.15.06_dc55f948-removebg-preview.png" alt="Logo"  height="40" >
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/index.html"><i class="bi bi-house"></i> Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/menu.html"><i class="bi bi-journal-text"></i> Menu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/payement/avis-emoji.html"><i class="bi bi-star"></i> Avis</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/payement/avis-emoji.html"><i class="bi bi-emoji-smile"></i> Votre Avis</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Section principale d'avis -->
+    <div class="feedback-container">
+      <h1 class="feedback-title">Votre Avis :</h1>
+      
+      <div class="emoji-container">
+        <div class="emoji-option" data-rating="1" data-emotion="très mécontent">
+          <div class="emoji">😞</div>
+          <div class="emoji-label">Très mécontent</div>
+        </div>
+        
+        <div class="emoji-option" data-rating="2" data-emotion="mécontent">
+          <div class="emoji">😕</div>
+          <div class="emoji-label">Mécontent</div>
+        </div>
+        
+        <div class="emoji-option" data-rating="3" data-emotion="neutre">
+          <div class="emoji">😐</div>
+          <div class="emoji-label">Neutre</div>
+        </div>
+        
+        <div class="emoji-option" data-rating="4" data-emotion="content">
+          <div class="emoji">🙂</div>
+          <div class="emoji-label">Content</div>
+        </div>
+        
+        <div class="emoji-option" data-rating="5" data-emotion="très content">
+          <div class="emoji">😊</div>
+          <div class="emoji-label">Très content</div>
+        </div>
+      </div>
+
+      <div class="counter">
+        <div class="counter-number" id="feedbackCounter">0</div>
+        <div>Personne a donné son avis</div>
+      </div>
+    </div>
+
+    <!-- Message de succès -->
+    <div class="success-message" id="successMessage">
+      <h4><i class="bi bi-check-circle"></i> Merci pour votre avis !</h4>
+      <p>Votre feedback a été envoyé avec succès. Il nous aidera à améliorer notre service.</p>
+    </div>
+
+    <!-- Formulaire de commentaire (optionnel) -->
+    <div class="form-section" id="commentForm" style="display: none;">
+      <h3><i class="bi bi-chat-text text-warning"></i> Partagez votre expérience (optionnel)</h3>
+      <form id="feedbackForm">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="customerName" class="form-label">Votre nom</label>
+            <input type="text" class="form-control" id="customerName" placeholder="Nom (optionnel)">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="customerEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="customerEmail" placeholder="Email (optionnel)">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="customerComment" class="form-label">Votre commentaire</label>
+          <textarea class="form-control" id="customerComment" rows="4" placeholder="Dites-nous ce que vous avez pensé de votre expérience..."></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label for="visitDate" class="form-label">Date de visite</label>
+          <input type="date" class="form-control" id="visitDate">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-send"></i> Envoyer mon avis complet
+        </button>
+      </form>
+    </div>
+
+    <!-- Section retour -->
+    <div class="text-center mt-4">
+      <a href="javascript:history.back()" class="btn-retour me-2">
+        <i class="bi bi-arrow-left"></i>
+        Retour
+      </a>
+      <a href="avis-emoji.html" class="btn btn-outline-primary">
+        <i class="bi bi-star"></i>
+        Voir tous les avis
+      </a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Compteur d'avis stocké dans localStorage
+    let feedbackCount = localStorage.getItem('feedbackCount') || 0;
+    let selectedRating = null;
+    let selectedEmotion = null;
+
+    // Mise à jour du compteur à l'affichage
+    document.getElementById('feedbackCounter').textContent = feedbackCount;
+    document.getElementById('feedbackCounter').nextElementSibling.textContent = 
+      feedbackCount <= 1 ? 'Personne a donné son avis' : 'Personnes ont donné leur avis';
+
+    // Gestion de la sélection des émojis
+    const emojiOptions = document.querySelectorAll('.emoji-option');
+    
+    emojiOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        // Retirer la sélection précédente
+        emojiOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // Ajouter la sélection à l'option cliquée
+        this.classList.add('selected');
+        
+        // Stocker les valeurs sélectionnées
+        selectedRating = this.dataset.rating;
+        selectedEmotion = this.dataset.emotion;
+        
+        // Afficher le formulaire de commentaire après une courte animation
+        setTimeout(() => {
+          document.getElementById('commentForm').style.display = 'block';
+          document.getElementById('commentForm').scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+        
+        // Auto-soumettre l'avis simple après 2 secondes si pas d'interaction avec le formulaire
+        autoSubmitTimer = setTimeout(() => {
+          if (!document.getElementById('customerComment').value.trim()) {
+            submitSimpleFeedback();
+          }
+        }, 3000);
+      });
+    });
+
+    let autoSubmitTimer;
+
+    // Annuler l'auto-soumission si l'utilisateur interagit avec le formulaire
+    const formInputs = document.querySelectorAll('#feedbackForm input, #feedbackForm textarea');
+    formInputs.forEach(input => {
+      input.addEventListener('focus', () => {
+        if (autoSubmitTimer) {
+          clearTimeout(autoSubmitTimer);
+        }
+      });
+    });
+
+    // Fonction pour soumettre un avis simple (juste l'émoji)
+    function submitSimpleFeedback() {
+      if (!selectedRating) return;
+
+      // Simuler l'envoi des données au serveur
+      const feedbackData = {
+        rating: selectedRating,
+        emotion: selectedEmotion,
+        timestamp: new Date().toISOString(),
+        type: 'simple'
+      };
+
+      // Ici vous pourriez envoyer les données à votre serveur
+      console.log('Avis envoyé:', feedbackData);
+
+      // Mettre à jour le compteur
+      feedbackCount++;
+      localStorage.setItem('feedbackCount', feedbackCount);
+      
+      showSuccessMessage();
+    }
+
+    // Gestion du formulaire complet
+    document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      if (autoSubmitTimer) {
+        clearTimeout(autoSubmitTimer);
+      }
+
+      const feedbackData = {
+        rating: selectedRating,
+        emotion: selectedEmotion,
+        name: document.getElementById('customerName').value,
+        email: document.getElementById('customerEmail').value,
+        comment: document.getElementById('customerComment').value,
+        visitDate: document.getElementById('visitDate').value,
+        timestamp: new Date().toISOString(),
+        type: 'complete'
+      };
+
+      // Ici vous pourriez envoyer les données à votre serveur
+      console.log('Avis complet envoyé:', feedbackData);
+
+      // Mettre à jour le compteur
+      feedbackCount++;
+      localStorage.setItem('feedbackCount', feedbackData.type === 'complete' ? feedbackCount : feedbackCount);
+      
+      showSuccessMessage();
+    });
+
+    // Fonction pour afficher le message de succès
+    function showSuccessMessage() {
+      document.getElementById('successMessage').style.display = 'block';
+      document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+      
+      // Mettre à jour l'affichage du compteur
+      document.getElementById('feedbackCounter').textContent = feedbackCount;
+      document.getElementById('feedbackCounter').nextElementSibling.textContent = 
+        feedbackCount <= 1 ? 'Personne a donné son avis' : 'Personnes ont donné leur avis';
+      
+      // Réinitialiser le formulaire après 3 secondes
+      setTimeout(() => {
+        // Retirer les sélections
+        emojiOptions.forEach(opt => opt.classList.remove('selected'));
+        
+        // Cacher le formulaire et le message de succès
+        document.getElementById('commentForm').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
+        
+        // Remettre à zéro les variables
+        selectedRating = null;
+        selectedEmotion = null;
+        
+        // Réinitialiser le formulaire
+        document.getElementById('feedbackForm').reset();
+        
+        // Remonter en haut
+        document.querySelector('.feedback-container').scrollIntoView({ behavior: 'smooth' });
+      }, 3000);
+    }
+
+    // Initialiser la date actuelle par défaut
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('visitDate').value = today;
+    });
+
+    // Animation d'entrée pour les émojis
+    window.addEventListener('load', function() {
+      emojiOptions.forEach((option, index) => {
+        setTimeout(() => {
+          option.style.opacity = '0';
+          option.style.transform = 'translateY(20px)';
+          option.style.transition = 'all 0.5s ease';
+          
+          setTimeout(() => {
+            option.style.opacity = '1';
+            option.style.transform = 'translateY(0)';
+          }, 100);
+        }, index * 100);
+      });
+    });
+  </script>
+</body>
+</html>

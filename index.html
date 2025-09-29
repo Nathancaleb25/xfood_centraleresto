@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RestoNova - Restaurant Gastronomique</title>
+  <meta name="description" content="Découvrez RestoNova, une expérience culinaire exceptionnelle. Commandez en ligne, consultez notre carte et profitez de la livraison.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/icon.jpg" type="image/x-icon">
+  <style>
+    :root {
+      --primary-color:#219604;
+      --secondary-color:  #E85A1D;
+      --dark-color: #222;
+      --light-color: #f8f9fa;
+      --text-color: #333;
+      --bg-color: #ffffff;
+      --card-bg: #fff;
+      --footer-bg: #f8f9fa;
+      --footer-text: #333;
+      --transition: all 0.3s ease;
+    }
+    
+    [data-theme="dark"] {
+      --primary-color: #c19b30;
+      --secondary-color: #a67c52;
+      --dark-color: #121212;
+      --light-color: #2a2a2a;
+      --text-color: #e0e0e0;
+      --bg-color: #1e1e1e;
+      --card-bg: #2d2d2d;
+      --footer-bg: #121212;
+      --footer-text: #e0e0e0;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      transition: var(--transition);
+    }
+    
+    h1, h2, h3, h4, h5, .font-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--text-color);
+    }
+    
+    .theme-switch-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    
+    .theme-switch {
+      display: inline-block;
+      height: 28px;
+      position: relative;
+      width: 60px;
+    }
+    
+    .theme-switch input {
+      display: none;
+    }
+    
+    .slider {
+      background-color: #ccc;
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      background-color: white;
+      bottom: 4px;
+      content: "";
+      height: 20px;
+      left: 4px;
+      position: absolute;
+      transition: .4s;
+      width: 20px;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(32px);
+    }
+    
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    
+    .hero-banner {
+      position: relative;
+      overflow: hidden;
+      max-height: 60vh;
+    }
+    
+    .hero-banner img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .hero-banner:hover img {
+      transform: scale(1.03);
+    }
+    
+    .logo-container {
+      padding: 15px 0;
+      background: linear-gradient(to bottom, var(--bg-color) 80%, transparent 100%);
+      margin-top: -5px;
+    }
+    
+    .img-fluidlogo {
+      max-width: 120px;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: var(--transition);
+    }
+    
+    .img-fluidlogo:hover {
+      transform: rotate(5deg);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    
+    .logo-legende-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .icon-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 25px 15px;
+      transition: var(--transition);
+      height: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .icon-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    
+    .icon-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+    
+    .icon-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .icon-style {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    
+    .icon-card:hover .icon-style {
+      color: var(--secondary-color);
+      transform: scale(1.1);
+    }
+    
+    .card-link:hover {
+      text-decoration: none;
+    }
+    
+    .icon-card p {
+      color: var(--text-color);
+      font-weight: 500;
+      margin-bottom: 0;
+      transition: var(--transition);
+    }
+    
+    .icon-card:hover p {
+      color: var(--secondary-color);
+    }
+    
+    .footer {
+      background: var(--footer-bg) !important;
+      color: var(--footer-text);
+      padding: 20px 0 !important;
+      margin-top: 40px !important;
+    }
+    
+    .footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer a:hover {
+      color: var(--secondary-color);
+      text-decoration: underline;
+    }
+    
+    .navbar-custom {
+      background-color: var(--card-bg);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .badge-cart {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: var(--secondary-color);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .promo-banner {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 8px;
+    }
+    
+    .btn-theme {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-theme:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      color: white;
+    }
+    
+    .social-icon {
+      color: var(--text-color);
+      transition: var(--transition);
+    }
+    
+    .social-icon:hover {
+      color: var(--primary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* Styles pour le panier */
+    .cart-item {
+      border-bottom: 1px solid #eee;
+      padding: 15px 0;
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    
+    .quantity-control {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quantity-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .quantity-input {
+      width: 40px;
+      text-align: center;
+      margin: 0 8px;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 4px;
+    }
+    
+    .cart-summary {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 15px;
+    }
+    
+    .delivery-option {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .delivery-option:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .delivery-option.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(212, 175, 55, 0.1);
+    }
+    
+    .alert-fixed {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 1060;
+      min-width: 300px;
+      animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-20px); }
+    }
+    
+    /* Nouveaux styles pour les fonctionnalités ajoutées */
+    .whatsapp-share-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .whatsapp-share-btn:hover {
+      background-color: #128C7E;
+      color: white;
+    }
+    
+    .order-history-item {
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .promo-code-input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    
+    .promo-code-btn {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    
+    .suggested-items {
+      background-color: rgba(212, 175, 55, 0.05);
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    
+    .suggested-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+      cursor: pointer;
+    }
+    
+    .suggested-item:hover {
+      background-color: rgba(212, 175, 55, 0.1);
+    }
+    
+    .suggested-item-img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 10px;
+    }
+    
+    /* Styles pour le statut du panier */
+    .cart-status {
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .cart-status.has-items {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .cart-status.empty {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    
+    @media (max-width: 768px) {
+      .img-fluidlogo {
+        max-width: 80px;
+      }
+      
+      .logo-legende-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      
+      .icon-style {
+        font-size: 1.8rem;
+      }
+      
+      .icon-card {
+        padding: 20px 10px;
+      }
+      
+      .alert-fixed {
+        left: 10px;
+        right: 10px;
+        min-width: unset;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/index.html">
+        <img src="/images/WhatsApp_Image_2025-09-29_à_09.15.06_dc55f948-removebg-preview.png" alt="XFOOD" height="60" class="d-inline-block align-top ">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html"><i class="bi bi-house me-1"></i> Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/menu.html"><i class="bi bi-card-list me-1"></i> Carte & Menu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/payement/avis-emoji.html"><i class="bi bi-star me-1"></i> Avis</a>
+          </li>
+          <li class="nav-item ms-2 position-relative">
+            <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#panierModal">
+              <i class="bi bi-cart3"></i>
+              <span class="badge-cart" id="cartCount">0</span>
+            </a>
+          </li>
+          <li class="nav-item ms-2">
+            <div class="theme-switch-wrapper">
+              <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Haut : Image principale -->
+  <div class="hero-banner mt-5 pt-4">
+    <img src="/images/hero.jpg" alt="Restaurant Enjera" class="img-fluid w-100">
+  </div>
+
+  <!-- Logo et légende alignés sur la même ligne -->
+  <div class="logo-container">
+    <div class="container">
+      <div class="logo-legende-container">
+        <div>
+          <img src="/images/Design sans titre (2).png" alt="Logo RestoNova" class="img-fluidlogo">
+        </div>
+        <div class="text-center text-md-start">
+          <h1 class="font-title mb-1">enjera</h1>
+          <p class="lead mb-0">Une expérience culinaire exceptionnelle</p>
+          <div class="d-flex justify-content-center justify-content-md-start align-items-center mt-2">
+            <small class="text-muted me-3"><i class="bi bi-geo-alt me-1"></i> Abidjan cocody II plateaux vallon rue des jardins à côté de Leader price, Côte d'Ivoire</small>
+            <small class="text-muted"><i class="bi bi-star-fill text-warning me-1"></i>4.8/5 (200 avis)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cartes entièrement cliquables -->
+  <div class="container my-5">
+    <div class="text-center mb-4">
+      <h2 class="font-title">Nos services</h2>
+      <p class="text-muted">Découvrez toutes les possibilités que nous vous offrons</p>
+    </div>
+    <div class="row justify-content-center text-center">
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <a href="/menu.html" class="card-link text-decoration-none">
+          <div class="icon-card shadow-sm">
+            <i class="bi bi-card-list icon-style"></i>
+            <p class="mt-2 fw-medium">Carte & Menu</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <a href="/payement/payement.html" class="card-link text-decoration-none">
+          <div class="icon-card shadow-sm">
+            <i class="bi bi-credit-card icon-style"></i>
+            <p class="mt-2 fw-medium">Payer ma conso</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3 mb-4">
+        <a href="/payement/avis-emoji.html" class="card-link text-decoration-none">
+          <div class="icon-card shadow-sm">
+            <i class="bi bi-star icon-style"></i>
+            <p class="mt-2 fw-medium">Avis</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer text-center py-4 mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-3 mb-md-0">
+          <h5 class="font-title">Horaires d'ouverture</h5>
+          <p class="mb-0">Lundi - Vendredi: 07h - 23h</p>
+          <p class="mb-0">Samedi - Dimanche: 07h - 00h</p>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+          <h5 class="font-title">Nous contacter</h5>
+          <p class="mb-0"><i class="bi bi-telephone me-2"></i>+225 07 07 87 28 64</p>
+          <p class="mb-0"><i class="bi bi-envelope me-2"></i>contact@restonova.ci</p>
+        </div>
+        <div class="col-md-4">
+          <h5 class="font-title">Suivez-nous</h5>
+          <div class="d-flex justify-content-center">
+            <a href="#" class="me-3 social-icon"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
+            <a href="#" class="me-3 social-icon"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-whatsapp" style="font-size: 1.5rem;"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="my-4">
+      <p class="mb-0">&copy; 2025 xfood. Conçu par <a href="https://xnova-ci.com/" target="_blank">Xnova</a></p>
+    </div>
+  </footer>
+
+  <!-- Modal Panier amélioré -->
+  <div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="panierLabel"><i class="bi bi-cart3 me-2"></i>Votre Panier</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Statut du panier -->
+          <div id="cartStatus" class="cart-status empty">
+            <i class="bi bi-cart-x me-2"></i>Votre panier est vide
+          </div>
+          
+          <!-- Options de livraison -->
+          <div class="mb-4" id="deliveryOptions" style="display: none;">
+            <h6>Mode de récupération</h6>
+            <div class="row">
+              <div class="col-6">
+                <div class="delivery-option" data-type="emporter" onclick="selectDeliveryOption(this, 'emporter')">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="deliveryOption" id="optionEmporter">
+                    <label class="form-check-label" for="optionEmporter">
+                      <i class="bi bi-bag-check me-1"></i> À emporter
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="delivery-option" data-type="surplace" onclick="selectDeliveryOption(this, 'surplace')">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="deliveryOption" id="optionSurPlace">
+                    <label class="form-check-label" for="optionSurPlace">
+                      <i class="bi bi-shop me-1"></i> Sur place
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div id="panier-items">
+            <!-- Les éléments du panier seront ajoutés dynamiquement ici -->
+          </div>
+          
+          <div class="cart-summary mt-4" id="cartSummary" style="display: none;">
+            <div class="d-flex justify-content-between fw-bold">
+              <span>Total:</span>
+              <span id="total">0 FCFA</span>
+            </div>
+          </div>
+          
+          <div id="delivery-info" class="mt-3 d-none">
+            <div class="mb-3">
+              <label for="lieuLivraison" class="form-label">Lieu de livraison</label>
+              <input type="text" class="form-control" id="lieuLivraison" placeholder="Ex: Cocody, Rue des Jardins">
+            </div>
+            <div class="mb-3">
+              <label for="numeroTelephone" class="form-label">Numéro de téléphone</label>
+              <input type="text" class="form-control" id="numeroTelephone" placeholder="Ex: 07 07 87 28 64">
+            </div>
+          </div>
+          
+          <div id="table-info" class="mt-3 d-none">
+            <div class="mb-3">
+              <label for="tableNumber" class="form-label">Numéro de table</label>
+              <input type="text" class="form-control" id="tableNumber" placeholder="Ex: Table 12">
+            </div>
+          </div>
+          
+          <!-- Bouton de partage WhatsApp -->
+          <button class="btn whatsapp-share-btn w-100 py-2 mb-2" id="shareButton" style="display: none;" onclick="shareCartWithFriend()">
+            <i class="bi bi-whatsapp"></i> Partager la commande avec un ami
+          </button>
+          
+          <button class="btn btn-success w-100 py-2" id="orderButton" style="display: none;" onclick="passerCommande()">
+            <i class="bi bi-check-circle me-2"></i>Passer la commande
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Configuration
+    const WHATSAPP_NUMBER = "2250707872864";
+
+    // Gestion du thème clair/sombre
+    const toggleSwitch = document.querySelector('#checkbox');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    if (currentTheme) {
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      
+      if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+      }
+    }
+    
+    function switchTheme(e) {
+      if (e.target.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }    
+    }
+    
+    toggleSwitch.addEventListener('change', switchTheme, false);
+    
+    // Gestion du panier
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let deliveryOption = '';
+    
+    // Initialiser l'affichage du panier au chargement
+    document.addEventListener('DOMContentLoaded', function() {
+      updateCartDisplay();
+    });
+    
+    // Mettre à jour l'affichage du panier
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('panier-items');
+      const cartCount = document.getElementById('cartCount');
+      const totalEl = document.getElementById('total');
+      const cartStatus = document.getElementById('cartStatus');
+      const deliveryOptions = document.getElementById('deliveryOptions');
+      const cartSummary = document.getElementById('cartSummary');
+      const shareButton = document.getElementById('shareButton');
+      const orderButton = document.getElementById('orderButton');
+      
+      if (cartCount) {
+        // Mettre à jour le compteur
+        const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+        cartCount.textContent = itemCount;
+      }
+      
+      if (cartItems) {
+        // Vider le contenu actuel
+        cartItems.innerHTML = '';
+        
+        if (cart.length === 0) {
+          cartItems.innerHTML = '<p class="text-center text-muted my-4">Votre panier est vide pour le moment</p>';
+          if (totalEl) totalEl.textContent = '0 FCFA';
+          
+          // Mettre à jour le statut du panier
+          if (cartStatus) {
+            cartStatus.className = 'cart-status empty';
+            cartStatus.innerHTML = '<i class="bi bi-cart-x me-2"></i>Votre panier est vide';
+          }
+          
+          // Masquer les options de livraison et les boutons
+          if (deliveryOptions) deliveryOptions.style.display = 'none';
+          if (cartSummary) cartSummary.style.display = 'none';
+          if (shareButton) shareButton.style.display = 'none';
+          if (orderButton) orderButton.style.display = 'none';
+          
+          return;
+        }
+        
+        // Afficher les articles du panier
+        cart.forEach((item, index) => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'cart-item';
+          itemElement.innerHTML = `
+            <div class="row align-items-center">
+              <div class="col-3 col-md-2">
+                <img src="${item.image || '/image/placeholder-food.jpg'}" alt="${item.name}" class="cart-item-img">
+              </div>
+              <div class="col-5 col-md-6">
+                <h6 class="mb-1">${item.name}</h6>
+                <p class="mb-0 text-muted">${item.price.toLocaleString()} FCFA</p>
+              </div>
+              <div class="col-4 col-md-4">
+                <div class="d-flex align-items-center quantity-control">
+                  <div class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity - 1})">-</div>
+                  <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, parseInt(this.value))">
+                  <div class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity + 1})">+</div>
+                  <button class="btn btn-sm btn-outline-danger ms-2" onclick="removeFromCart(${index})">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          cartItems.appendChild(itemElement);
+        });
+        
+        // Mettre à jour le statut du panier
+        if (cartStatus) {
+          const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+          cartStatus.className = 'cart-status has-items';
+          cartStatus.innerHTML = `<i class="bi bi-cart-check me-2"></i>Votre panier contient ${itemCount} article(s)`;
+        }
+        
+        // Afficher les options de livraison et les boutons
+        if (deliveryOptions) deliveryOptions.style.display = 'block';
+        if (cartSummary) cartSummary.style.display = 'block';
+        if (shareButton) shareButton.style.display = 'block';
+        if (orderButton) orderButton.style.display = 'block';
+      }
+      
+      if (totalEl) {
+        // Calculer le total
+        const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        totalEl.textContent = total.toLocaleString() + ' FCFA';
+      }
+      
+      // Sauvegarder le panier dans le localStorage
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    
+    // Mettre à jour la quantité d'un article
+    function updateQuantity(index, newQuantity) {
+      if (newQuantity < 1) newQuantity = 1;
+      cart[index].quantity = newQuantity;
+      updateCartDisplay();
+    }
+    
+    // Supprimer un article du panier
+    function removeFromCart(index) {
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet article du panier ?")) {
+        cart.splice(index, 1);
+        updateCartDisplay();
+        showAlert("Article supprimé du panier", "success");
+      }
+    }
+    
+    // Sélectionner l'option de livraison
+    function selectDeliveryOption(element, type) {
+      deliveryOption = type;
+      
+      // Mettre à jour l'interface visuelle
+      document.querySelectorAll('.delivery-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      
+      // Mettre à jour les radios boutons
+      document.querySelectorAll('input[name="deliveryOption"]').forEach(radio => {
+        radio.checked = false;
+      });
+      element.querySelector('input[type="radio"]').checked = true;
+      
+      // Afficher les champs appropriés
+      const deliveryInfo = document.getElementById('delivery-info');
+      const tableInfo = document.getElementById('table-info');
+      
+      if (deliveryInfo && tableInfo) {
+        if (type === 'emporter') {
+          deliveryInfo.classList.remove('d-none');
+          tableInfo.classList.add('d-none');
+          showAlert("Vous avez choisi l'option À EMPORTER", "info");
+        } else if (type === 'surplace') {
+          deliveryInfo.classList.add('d-none');
+          tableInfo.classList.remove('d-none');
+          showAlert("Vous avez choisi l'option SUR PLACE", "info");
+        }
+      }
+    }
+    
+    // Afficher une alerte
+    function showAlert(message, type) {
+      // Créer l'élément d'alerte
+      const alertEl = document.createElement('div');
+      alertEl.className = `alert alert-${type} alert-fixed`;
+      alertEl.innerHTML = `
+        <i class="bi ${type === 'success' ? 'bi-check-circle' : 'bi-info-circle'} me-2"></i>
+        ${message}
+      `;
+      
+      // Ajouter au body
+      document.body.appendChild(alertEl);
+      
+      // Supprimer après 3 secondes
+      setTimeout(() => {
+        if (alertEl.parentNode) {
+          alertEl.remove();
+        }
+      }, 3000);
+    }
+    
+    // Fonction pour partager le panier avec un ami via WhatsApp
+    function shareCartWithFriend() {
+      if (cart.length === 0) {
+        showAlert('Votre panier est vide. Ajoutez des articles avant de partager.', 'warning');
+        return;
+      }
+      
+      // Créer le message avec les détails du panier
+      let message = "Salut! 👋 Je veux partager ma commande XFOOD avec toi :\n\n";
+      
+      // Ajouter les articles du panier
+      cart.forEach((item, index) => {
+        message += `• ${item.name} x${item.quantity} - ${(item.price * item.quantity).toLocaleString()} FCFA\n`;
+      });
+      
+      // Ajouter le total
+      const total = calculateTotal();
+      message += `\n💰 *TOTAL: ${total.toLocaleString()} FCFA*\n\n`;
+      
+      message += "Qu'est-ce que tu en penses? Veux-tu que je commande pour toi aussi?";
+      
+      // Encoder le message pour l'URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Créer le lien WhatsApp
+      const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+      
+      // Ouvrir WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      showAlert("Ouverture de WhatsApp pour partager votre commande", "info");
+    }
+
+    // Fonction utilitaire pour calculer le total
+    function calculateTotal() {
+      return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    }
+    
+    // Fonction pour passer la commande
+    function passerCommande() {
+      // Vérifier si le panier est vide
+      if (cart.length === 0) {
+        showAlert("Votre panier est vide. Ajoutez des articles avant de commander.", "warning");
+        return;
+      }
+      
+      // Vérifier si une option de livraison a été sélectionnée
+      if (!deliveryOption) {
+        showAlert("Veuillez sélectionner un mode de récupération (À emporter ou Sur place).", "warning");
+        return;
+      }
+      
+      // Vérifier les informations requises selon l'option
+      if (deliveryOption === 'emporter') {
+        const deliveryAddress = document.getElementById('lieuLivraison').value;
+        const phoneNumber = document.getElementById('numeroTelephone').value;
+        
+        if (!deliveryAddress || !phoneNumber) {
+          showAlert("Veuillez renseigner votre adresse et votre numéro de téléphone pour la livraison.", "warning");
+          return;
+        }
+      } else if (deliveryOption === 'surplace') {
+        const tableNumber = document.getElementById('tableNumber').value;
+        
+        if (!tableNumber) {
+          showAlert("Veuillez renseigner votre numéro de table.", "warning");
+          return;
+        }
+      }
+      
+      // Préparer les données de la commande
+      const orderData = {
+        items: cart,
+        total: calculateTotal(),
+        deliveryType: deliveryOption,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Ajouter les informations spécifiques selon le type de commande
+      if (deliveryOption === 'emporter') {
+        orderData.deliveryAddress = document.getElementById('lieuLivraison').value;
+        orderData.phoneNumber = document.getElementById('numeroTelephone').value;
+      } else {
+        orderData.tableNumber = document.getElementById('tableNumber').value;
+      }
+      
+      // Envoyer la commande via WhatsApp
+      sendOrderToWhatsApp(orderData);
+    }
+
+    // Fonction pour envoyer la commande au propriétaire via WhatsApp
+    function sendOrderToWhatsApp(orderData) {
+      // Formater le message de commande
+      let message = `*NOUVELLE COMMANDE XFOOD* 🍽️\n\n`;
+      
+      // Détails de la commande
+      message += `*Type:* ${orderData.deliveryType === 'emporter' ? 'À emporter' : 'Sur place'}\n`;
+      
+      if (orderData.deliveryType === 'emporter') {
+        message += `*Lieu de livraison:* ${orderData.deliveryAddress}\n`;
+        message += `*Téléphone:* ${orderData.phoneNumber}\n`;
+      } else {
+        message += `*Numéro de table:* ${orderData.tableNumber}\n`;
+      }
+      
+      message += `*Date:* ${new Date(orderData.timestamp).toLocaleString('fr-FR')}\n\n`;
+      
+      // Articles de la commande
+      message += `*DÉTAILS DE LA COMMANDE:*\n`;
+      orderData.items.forEach((item, index) => {
+        message += `${index + 1}. ${item.name} x${item.quantity} - ${(item.price * item.quantity).toLocaleString()} FCFA\n`;
+      });
+      
+      message += `\n*TOTAL: ${orderData.total.toLocaleString()} FCFA*\n\n`;
+      message += `_Merci de préparer cette commande au plus vite!_`;
+      
+      // Encoder le message pour l'URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Créer le lien WhatsApp avec le numéro du propriétaire
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+      
+      // Ouvrir WhatsApp
+      window.open(whatsappUrl, '_blank');
+      
+      // Afficher un message de confirmation
+      showAlert("Votre commande a été envoyée avec succès!", "success");
+      
+      // Vider le panier après la commande
+      cart = [];
+      updateCartDisplay();
+      localStorage.setItem('cart', JSON.stringify(cart));
+      
+      // Fermer le modal du panier
+      const modal = bootstrap.Modal.getInstance(document.getElementById('panierModal'));
+      if (modal) {
+        modal.hide();
+      }
+    }
+    
+    // Fonction pour ajouter un article au panier (à utiliser dans les pages de menu)
+    function addToCart(item) {
+      // Vérifier si l'article est déjà dans le panier
+      const existingItemIndex = cart.findIndex(cartItem => cartItem.id === item.id);
+      
+      if (existingItemIndex !== -1) {
+        // Si l'article existe déjà, augmenter la quantité
+        cart[existingItemIndex].quantity += 1;
+      } else {
+        // Sinon, ajouter le nouvel article
+        cart.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          image: item.image,
+          quantity: 1
+        });
+      }
+      
+      // Mettre à jour l'affichage du panier
+      updateCartDisplay();
+      
+      // Afficher une confirmation
+      showAlert(`${item.name} ajouté au panier!`, 'success');
+    }
+  </script>
+</body>
+</html>
