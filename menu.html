@@ -14,15 +14,15 @@
   <link rel="shortcut icon" href="/images/icon.jpg" type="image/x-icon">
 
   <style>
-       :root {
-        --primary-color:#f76511;
-      --secondary-color:  #f8310e;
+    :root {
+      --primary-color: #ff3c00;
+      --secondary-color: #ff3c00;
       --dark-color: #e4391b;
       --light-color: #000000;
       --text-color: #000000;
-      --bg-color: #ffc583;
-      --card-bg: #7BC043;
-      --footer-bg: #7BC043;
+      --bg-color: #fa9c1093;
+      --card-bg:#ecba4f;
+      --footer-bg: #000000;
       --footer-text: #333;
       --transition: all 0.3s ease;
     }
@@ -37,7 +37,6 @@
       --card-bg: #2f491a;
       --footer-bg: #121212;
       --footer-text: #e0e0e0;
-    
     }
     
     body {
@@ -131,6 +130,7 @@
       position: relative;
       overflow: hidden;
       height: 200px;
+      margin-top: 76px;
     }
     
     .hero-banner img {
@@ -190,26 +190,29 @@
       padding: 0 40px;
     }
     
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 15px;
+    .menu-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 25px 0;
+      min-height: 300px;
     }
     
     .menu-card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
       transition: var(--transition);
-      height: 100%;
+      width: 100%;
+      max-width: 400px;
       border: none;
+      position: relative;
     }
     
     .menu-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     }
     
     .card-link {
@@ -222,43 +225,67 @@
     
     .card-icon {
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      height: 90px;
+      height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.8rem;
+      font-size: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-icon::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.2));
     }
     
     .card-content {
-      padding: 15px;
+      padding: 20px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      text-align: center;
     }
     
     .card-content h5 {
-      font-size: 1.1rem;
-      margin-bottom: 8px;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
       color: var(--dark-color);
     }
     
     .card-content p {
       color: #fffdfd;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
       flex-grow: 1;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
     
     .card-arrow {
       color: var(--primary-color);
-      font-size: 1rem;
-      align-self: flex-end;
+      font-size: 1.2rem;
+      align-self: center;
       transition: var(--transition);
+      background: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
     .menu-card:hover .card-arrow {
       transform: translateX(5px);
+      background: var(--primary-color);
+      color: white;
     }
     
     .footer {
@@ -396,6 +423,15 @@
       color: #ffffff;
     }
     
+    .social-icon {
+      transition: var(--transition);
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-3px);
+      color: var(--primary-color) !important;
+    }
+    
     @media (max-width: 576px) {
       .navbar-brand img {
         height: 50px !important;
@@ -414,17 +450,28 @@
       .card-link, .quantity-btn, .delivery-option {
         min-height: 44px;
       }
-    }
-    
-    @media (min-width: 768px) {
-      .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
+      
+      .hero-banner {
+        height: 180px;
+      }
+      
+      .hero-title {
+        font-size: 1.5rem;
+      }
+      
+      .card-icon {
+        height: 100px;
+        font-size: 2rem;
+      }
+      
+      .card-content h5 {
+        font-size: 1.2rem;
       }
     }
     
-    @media (min-width: 992px) {
-      .menu-grid {
-        grid-template-columns: repeat(3, 1fr); /* Changé de 4 à 3 colonnes */
+    @media (min-width: 768px) {
+      .menu-card {
+        max-width: 450px;
       }
     }
   </style>
@@ -446,7 +493,7 @@
             <a class="nav-link" href="./index.html"><i class="bi bi-house me-1"></i> Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/menu.html"><i class="bi bi-card-list me-1"></i> Carte & Menu</a>
+            <a class="nav-link active" href="/menu.html"><i class="bi bi-card-list me-1"></i> Carte & Menu</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/payement/avis-emoji.html"><i class="bi bi-star me-1"></i> Avis</a>
@@ -471,7 +518,7 @@
   </nav>
 
   <!-- Hero Section avec image -->
-  <div class="hero-banner mt-5 pt-4">
+  <div class="hero-banner">
     <img src="/images/curry-aigre-avec-poisson-tete-de-serpent-fondue-epicee-de-jardin-cuisine-thailandaise.jpg" alt="Notre carte et menus">
     <div class="hero-overlay">
       <h1 class="hero-title font-title">Découvrez Notre Carte</h1>
@@ -488,9 +535,9 @@
     </div>
   </div>
 
-  <!-- Grid des catégories de menu -->
+  <!-- Container centré pour la carte unique -->
   <div class="container">
-    <div class="menu-grid">
+    <div class="menu-container">
       <!-- Card Repas -->
       <div class="menu-card">
         <a href="/liste_menu/plats.html" class="card-link">
@@ -499,39 +546,7 @@
           </div>
           <div class="card-content">
             <h5 class="font-title">Repas</h5>
-            <p>Découvrez nos plats savoureux, entrées exquises, salades fraîches et grillades parfumées.</p>
-            <div class="card-arrow">
-              <i class="bi bi-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <!-- Card Boissons -->
-      <div class="menu-card">
-        <a href="/liste_menu/boissons.html" class="card-link">
-          <div class="card-icon">
-            <i class="bi bi-cup-straw"></i>
-          </div>
-          <div class="card-content">
-            <h5 class="font-title">Boissons</h5>
-            <p>Rafraîchissez-vous avec nos boissons fraîches, cafés aromatiques et jus maison.</p>
-            <div class="card-arrow">
-              <i class="bi bi-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <!-- Card Desserts -->
-      <div class="menu-card">
-        <a href="/liste_menu/dessert.html" class="card-link">
-          <div class="card-icon">
-            <i class="bi bi-emoji-smile"></i>
-          </div>
-          <div class="card-content">
-            <h5 class="font-title">Desserts</h5>
-            <p>Succombez à nos gâteaux, pâtisseries orientales et glaces artisanales.</p>
+            <p>Découvrez nos plats savoureux, entrées exquises, salades fraîches et grillades parfumées. Une expérience culinaire unique vous attend.</p>
             <div class="card-arrow">
               <i class="bi bi-arrow-right"></i>
             </div>
