@@ -375,6 +375,48 @@
       background-color: rgba(240, 138, 22, 0.336);
     }
     
+    /* Styles pour les options de paiement */
+    .payment-option {
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+    }
+    
+    .payment-option:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .payment-option.selected {
+      border-color: var(--primary-color);
+      background-color: rgba(240, 138, 22, 0.336);
+    }
+    
+    .payment-icon {
+      font-size: 1.5rem;
+      margin-right: 10px;
+      width: 30px;
+      text-align: center;
+    }
+    
+    .payment-info {
+      flex: 1;
+    }
+    
+    .payment-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    
+    .payment-description {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    
     .alert-fixed {
       position: fixed;
       top: 70px;
@@ -836,6 +878,62 @@
             </div>
           </div>
           
+          <!-- Options de paiement -->
+          <div id="payment-options" class="mt-4 d-none">
+            <h6>Méthode de paiement</h6>
+            <div class="payment-option" onclick="selectPaymentOption(this, 'wave')">
+              <div class="payment-icon" style="color: #6f42c1;">
+                <i class="bi bi-phone"></i>
+              </div>
+              <div class="payment-info">
+                <div class="payment-title">Wave</div>
+                <div class="payment-description">Paiement mobile Wave</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentOption" id="optionWave">
+              </div>
+            </div>
+            
+            <div class="payment-option" onclick="selectPaymentOption(this, 'orange')">
+              <div class="payment-icon" style="color: #ff6600;">
+                <i class="bi bi-phone"></i>
+              </div>
+              <div class="payment-info">
+                <div class="payment-title">Orange Money</div>
+                <div class="payment-description">Paiement via Orange Money</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentOption" id="optionOrange">
+              </div>
+            </div>
+            
+            <div class="payment-option" onclick="selectPaymentOption(this, 'cash')">
+              <div class="payment-icon" style="color: #28a745;">
+                <i class="bi bi-cash"></i>
+              </div>
+              <div class="payment-info">
+                <div class="payment-title">Espèces</div>
+                <div class="payment-description">Paiement en espèces à la réception</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentOption" id="optionCash">
+              </div>
+            </div>
+            
+            <div class="payment-option" onclick="selectPaymentOption(this, 'server')">
+              <div class="payment-icon" style="color: #dc3545;">
+                <i class="bi bi-person-check"></i>
+              </div>
+              <div class="payment-info">
+                <div class="payment-title">Paiement au serveur</div>
+                <div class="payment-description">Payer directement au serveur</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentOption" id="optionServer">
+              </div>
+            </div>
+          </div>
+          
           <!-- Nouveau bouton de partage -->
           <button class="btn btn-share w-100 py-2 mb-2" id="shareButton" style="display: none;" onclick="shareCartWithFriend()">
             <i class="bi bi-whatsapp me-2"></i>Partager la commande avec un ami
@@ -852,7 +950,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Configuration
-    const WHATSAPP_NUMBER = "2250707872864";
+    const WHATSAPP_NUMBER = "2250585696060";
 
     // Gestion du thème clair/sombre
     const toggleSwitch = document.querySelector('#checkbox');
@@ -883,6 +981,7 @@
     // Gestion du panier
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let deliveryOption = '';
+    let paymentOption = '';
 
     // Initialiser l'affichage du panier au chargement
     document.addEventListener('DOMContentLoaded', function() {
@@ -924,6 +1023,7 @@
       const cartSummary = document.getElementById('cartSummary');
       const shareButton = document.getElementById('shareButton');
       const orderButton = document.getElementById('orderButton');
+      const paymentOptions = document.getElementById('payment-options');
       
       // Mettre à jour le compteur du panier flottant
       updateCartPreview();
@@ -953,6 +1053,7 @@
           if (cartSummary) cartSummary.style.display = 'none';
           if (shareButton) shareButton.style.display = 'none';
           if (orderButton) orderButton.style.display = 'none';
+          if (paymentOptions) paymentOptions.classList.add('d-none');
           
           return;
         }
@@ -997,6 +1098,7 @@
         if (cartSummary) cartSummary.style.display = 'block';
         if (shareButton) shareButton.style.display = 'block';
         if (orderButton) orderButton.style.display = 'block';
+        if (paymentOptions) paymentOptions.classList.remove('d-none');
       }
       
       if (totalEl) {
@@ -1107,6 +1209,39 @@
       }
     }
 
+    // Sélectionner l'option de paiement
+    function selectPaymentOption(element, type) {
+      paymentOption = type;
+      
+      document.querySelectorAll('.payment-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      
+      document.querySelectorAll('input[name="paymentOption"]').forEach(radio => {
+        radio.checked = false;
+      });
+      element.querySelector('input[type="radio"]').checked = true;
+      
+      let paymentMethod = '';
+      switch(type) {
+        case 'wave':
+          paymentMethod = 'Wave';
+          break;
+        case 'orange':
+          paymentMethod = 'Orange Money';
+          break;
+        case 'cash':
+          paymentMethod = 'Espèces';
+          break;
+        case 'server':
+          paymentMethod = 'Paiement au serveur';
+          break;
+      }
+      
+      showAlert(`Vous avez choisi le paiement par ${paymentMethod}`, "info");
+    }
+
     // Afficher une alerte
     function showAlert(message, type) {
       // Créer l'élément d'alerte
@@ -1180,6 +1315,12 @@
         return;
       }
       
+      // Vérifier si une méthode de paiement a été sélectionnée
+      if (!paymentOption) {
+        showAlert("Veuillez sélectionner une méthode de paiement.", "warning");
+        return;
+      }
+      
       // Vérifier les informations requises selon l'option
       if (deliveryOption === 'emporter') {
         const deliveryAddress = document.getElementById('lieuLivraison').value;
@@ -1203,6 +1344,7 @@
         items: cart,
         total: calculateTotal(),
         deliveryType: deliveryOption,
+        paymentMethod: paymentOption,
         timestamp: new Date().toISOString()
       };
       
@@ -1233,6 +1375,24 @@
         message += `*Numéro de table:* ${orderData.tableNumber}\n`;
       }
       
+      // Ajouter la méthode de paiement
+      let paymentMethodText = '';
+      switch(orderData.paymentMethod) {
+        case 'wave':
+          paymentMethodText = 'Wave';
+          break;
+        case 'orange':
+          paymentMethodText = 'Orange Money';
+          break;
+        case 'cash':
+          paymentMethodText = 'Espèces';
+          break;
+        case 'server':
+          paymentMethodText = 'Paiement au serveur';
+          break;
+      }
+      message += `*Paiement:* ${paymentMethodText}\n`;
+      
       message += `*Date:* ${new Date(orderData.timestamp).toLocaleString('fr-FR')}\n\n`;
       
       // Articles de la commande
@@ -1258,6 +1418,8 @@
       
       // Vider le panier après la commande
       cart = [];
+      deliveryOption = '';
+      paymentOption = '';
       updateCartDisplay();
       localStorage.setItem('cart', JSON.stringify(cart));
       
