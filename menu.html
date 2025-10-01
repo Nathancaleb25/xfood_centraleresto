@@ -14,16 +14,16 @@
   <link rel="shortcut icon" href="/images/icon.jpg" type="image/x-icon">
 
   <style>
-      :root {
+     :root {
       --primary-color: #ff3c00;
-      --secondary-color: #ffa600;
+      --secondary-color: #ff5e00c5;
       --dark-color: #e4391b;
       --light-color: #000000;
       --text-color: #000000;
-      --bg-color: #ffffff;
-      --card-bg:#ecba4f;
-      --footer-bg: #ecba4f;
-      --footer-text: #333;
+      --bg-color: #d1d0ce93;
+      --card-bg:#ffb686;
+      --footer-bg: #2c2927;
+      --footer-text: #c4bfbf;
       --transition: all 0.3s ease;
     }
     
@@ -431,6 +431,169 @@
       transform: translateY(-3px);
       color: var(--primary-color) !important;
     }
+
+    /* Styles pour le panier flottant */
+    .floating-cart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1050;
+      transition: var(--transition);
+    }
+    
+    .cart-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border: none;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .cart-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .cart-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+    }
+    
+    .cart-preview {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 300px;
+      background: var(--bg-color);
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+      padding: 15px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .cart-preview.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .cart-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .cart-preview-title {
+      font-weight: 600;
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .cart-preview-items {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    
+    .cart-preview-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .cart-preview-item:last-child {
+      border-bottom: none;
+    }
+    
+    .cart-preview-item-name {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+    
+    .cart-preview-item-quantity {
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.8rem;
+      margin: 0 5px;
+    }
+    
+    .cart-preview-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    
+    .cart-preview-actions {
+      margin-top: 10px;
+    }
+    
+    .view-cart-btn {
+      width: 100%;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    .view-cart-btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    @media (max-width: 768px) {
+      .floating-cart {
+        bottom: 15px;
+        right: 15px;
+      }
+      
+      .cart-preview {
+        width: 280px;
+        right: -20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .cart-preview {
+        width: 260px;
+        right: -40px;
+      }
+    }
     
     @media (max-width: 576px) {
       .navbar-brand img {
@@ -497,12 +660,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/payement/avis-emoji.html"><i class="bi bi-star me-1"></i> Avis</a>
-          </li>
-          <li class="nav-item ms-2 position-relative">
-            <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" data-bs-target="#panierModal">
-              <i class="bi bi-cart3"></i>
-              <span class="badge-cart" id="cartCount">0</span>
-            </a>
           </li>
           <li class="nav-item ms-2">
             <div class="theme-switch-wrapper">
@@ -583,6 +740,31 @@
       <p class="mb-0">&copy; 2025 xfood. Conçu par <a href="https://xnova-ci.com/" target="_blank">Xnova</a></p>
     </div>
   </footer>
+
+  <!-- Panier flottant -->
+  <div class="floating-cart">
+    <button class="cart-button" id="floatingCartButton">
+      <i class="bi bi-cart3"></i>
+      <span class="cart-badge" id="floatingCartCount">0</span>
+    </button>
+    <div class="cart-preview" id="cartPreview">
+      <div class="cart-preview-header">
+        <h6 class="cart-preview-title">Votre Panier</h6>
+      </div>
+      <div class="cart-preview-items" id="cartPreviewItems">
+        <!-- Les éléments du panier seront ajoutés dynamiquement ici -->
+      </div>
+      <div class="cart-preview-total">
+        <span>Total:</span>
+        <span id="cartPreviewTotal">0 FCFA</span>
+      </div>
+      <div class="cart-preview-actions">
+        <button class="view-cart-btn" data-bs-toggle="modal" data-bs-target="#panierModal">
+          <i class="bi bi-eye me-1"></i> Voir le panier complet
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Modal Panier amélioré -->
   <div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierLabel" aria-hidden="true">
@@ -705,7 +887,32 @@
     // Initialiser l'affichage du panier au chargement
     document.addEventListener('DOMContentLoaded', function() {
       updateCartDisplay();
+      setupFloatingCart();
     });
+
+    // Configurer le panier flottant
+    function setupFloatingCart() {
+      const floatingCartButton = document.getElementById('floatingCartButton');
+      const cartPreview = document.getElementById('cartPreview');
+      
+      if (floatingCartButton && cartPreview) {
+        // Afficher/masquer l'aperçu du panier
+        floatingCartButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          cartPreview.classList.toggle('show');
+        });
+        
+        // Fermer l'aperçu en cliquant ailleurs
+        document.addEventListener('click', function() {
+          cartPreview.classList.remove('show');
+        });
+        
+        // Empêcher la fermeture en cliquant sur l'aperçu
+        cartPreview.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+    }
 
     // Mettre à jour l'affichage du panier
     function updateCartDisplay() {
@@ -717,6 +924,9 @@
       const cartSummary = document.getElementById('cartSummary');
       const shareButton = document.getElementById('shareButton');
       const orderButton = document.getElementById('orderButton');
+      
+      // Mettre à jour le compteur du panier flottant
+      updateCartPreview();
       
       if (cartCount) {
         // Mettre à jour le compteur
@@ -797,6 +1007,55 @@
       
       // Sauvegarder le panier dans le localStorage
       localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    // Mettre à jour l'aperçu du panier flottant
+    function updateCartPreview() {
+      const cartPreviewItems = document.getElementById('cartPreviewItems');
+      const cartPreviewTotal = document.getElementById('cartPreviewTotal');
+      const floatingCartCount = document.getElementById('floatingCartCount');
+      
+      if (floatingCartCount) {
+        const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+        floatingCartCount.textContent = itemCount;
+      }
+      
+      if (cartPreviewItems) {
+        cartPreviewItems.innerHTML = '';
+        
+        if (cart.length === 0) {
+          cartPreviewItems.innerHTML = '<p class="text-center text-muted my-3">Votre panier est vide</p>';
+          if (cartPreviewTotal) cartPreviewTotal.textContent = '0 FCFA';
+          return;
+        }
+        
+        // Afficher les 3 premiers articles (ou moins)
+        const itemsToShow = cart.slice(0, 3);
+        
+        itemsToShow.forEach(item => {
+          const itemElement = document.createElement('div');
+          itemElement.className = 'cart-preview-item';
+          itemElement.innerHTML = `
+            <span class="cart-preview-item-name">${item.name}</span>
+            <span class="cart-preview-item-quantity">x${item.quantity}</span>
+            <span>${(item.price * item.quantity).toLocaleString()} FCFA</span>
+          `;
+          cartPreviewItems.appendChild(itemElement);
+        });
+        
+        // Afficher un message s'il y a plus d'articles
+        if (cart.length > 3) {
+          const moreItemsElement = document.createElement('div');
+          moreItemsElement.className = 'cart-preview-item text-center text-muted';
+          moreItemsElement.innerHTML = `... et ${cart.length - 3} autre(s) article(s)`;
+          cartPreviewItems.appendChild(moreItemsElement);
+        }
+      }
+      
+      if (cartPreviewTotal) {
+        const total = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        cartPreviewTotal.textContent = total.toLocaleString() + ' FCFA';
+      }
     }
 
     // Mettre à jour la quantité d'un article
